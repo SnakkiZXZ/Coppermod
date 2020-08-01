@@ -1,0 +1,16 @@
+{
+"type": "ItemSource"
+"name": "Источник предметов"
+"description": "У меди была обнаружена невероятная способность генерировать материю из ничего! этот блок использует эту способность для создании предметов"
+"health": 6000,
+"size": 1,
+"hasItems": true
+"update": true
+"solid": true
+"group": "transportation"
+"configurable": true
+"requirements": [
+{ "item": "copper", "amount": 35}
+],
+"research": "duo"
+}

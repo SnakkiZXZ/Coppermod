@@ -1,0 +1,23 @@
+{
+	"name": "Энергетическая турель",
+	"description": "Сверх-мощная турель, с помощью меди генерирует огромное кколичество света в виде лазера",
+	"health": 6000,
+	"reload": 8,
+	"rotatespeed": 3,
+	"powerUse": 0.1,
+	"targeAir": true,
+	"targeGround": true,
+	"range": 200,
+	"size": 1,
+	"chargeTime": 50,
+	"chargeMaxDelay": 4,
+	"chargeEffects": 7,
+	"shootShake": 2,
+	"chargeBeginEffect": "none",
+	"shootSound": "spark",
+	"requirements": [
+		{ "item": "copper", "amount": 50 },
+	],
+	"category": "turret"
+	"research": "arc"
+}

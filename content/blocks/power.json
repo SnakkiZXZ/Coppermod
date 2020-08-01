@@ -1,0 +1,14 @@
+{
+"type": "PowerSource"
+"name": "Источник энергии"
+"description": "Медь способна генерировать огромное колличество энергии, что и было использованно при создании этого блока!"
+"health": 6000,
+"size": 1,
+"maxNodes": 100
+"outputsPower": true
+"consumesPower": false
+"requirements": [
+{ "item": "copper", "amount": 35}
+],
+"research": "gol"
+}

@@ -1,0 +1,60 @@
+{
+type: doubleTurret
+name: "Песчаная турель"
+description: "Сверх-мощная двойная турель. Благодаря двум стволам и меди достигает высокой скорострельности и невероятной мощности пуль."
+targetAir: true
+targetGround: true
+health: 6000
+size: 1
+inaccuracy: 1
+reload: 10
+shots: 1
+range: 200
+shootShake: 1
+ammo: {
+sand: {
+
+speed: 4
+damage: 85
+bulletWidth: 9
+bulletHeight: 13
+shootEffect: shootBig2
+smokeEffect: shootBigSmoke
+ammoMultiplier: 4
+lifetime: 60
+
+}
+titanium: {
+
+speed: 7
+damage: 45
+bulletWidth: 5
+bulletHeight: 7
+shootEffect: shootSmall
+smokeEffect: shootSmallSmoke
+ammoMultiplier: 8
+reloadMultiplier: 4
+lifetime: 50
+
+}
+copper: {
+
+speed: 5
+damage: 65
+bulletWidth: 7
+bulletHeight: 9
+shootEffect: shootBig
+smokeEffect: shootBigSmoke
+ammoMultiplier: 4
+reloadMultiplier: 2
+lifetime: 60
+
+}
+},
+requirements: [
+    copper/30
+],
+category: turret
+shootSound: beam
+research: "turretPiwer"
+}

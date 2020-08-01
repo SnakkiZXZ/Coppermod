@@ -1,0 +1,15 @@
+{
+"type": "LiquidSource",
+"name": "Источник жидкости",
+"description": "У меди была обнаружена невероятная способность генерировать материю из ничего! этот блок использует эту способность для создании жидкостей",
+"health": 6000,
+"size": 1,
+"hasLiquids": true,
+"liquidCapacity": 100,
+"outputsLiquid": true,
+"configurable": true,
+"requirements": [
+{ "item": "copper", "amount": 35}
+],
+"research": "power"
+}
