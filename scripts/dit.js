@@ -14,7 +14,7 @@ const d = extendContent(Wall, "dit", {
         
     },
     
-    draw(tile){
+    /*draw(tile){
         
         this.super$draw(tile);
         
@@ -26,8 +26,7 @@ const d = extendContent(Wall, "dit", {
         
         Draw.reset();
         
-    },
+    },*/
     
 });
 d.update = true
-d.blendGroup = Group.water
