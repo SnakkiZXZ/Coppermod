@@ -1,31 +1,70 @@
-const Eff = require("EffectsLib")
+//const Eff = require("EffectsLib")
+const dial = require("diaL");
 
-const m = extendContent(Block, "mol", {
+const m = extendContent(Block, "mol", {})
+
+m.buildType = () => extend(Building, {
+    _item: null,
     
-    update(tile){
+    update(){
         
-        x = tile.drawx()
+        var x = this.x
+        var y = this.y
         
-        y = tile.drawy()
+        var core = Vars.state.teams.closestCore(x, y, this.team)
         
-        core = Vars.state.teams.closestCore(x, y, tile.getTeam())
-        
-        coreBlock = Vars.world.tileWorld(core.getX(), core.getY())
-        
-        for(i = 0; i < Vars.content.items().size; i++){
+        if(core != null && this != null){
             
-            item = Vars.content.items().get(i)
+        var coreBlock = Vars.world.tileWorld(core.x, core.y);
+        for(var i = 0; i < Vars.content.items().size; i++){
             
-            if(core.items.get(item) < 1000000000){
+            var item = Vars.content.items().get(i)
             
-                core.items.add(item, 1)
+            if(core.items.get(item) < 100000000){
+            
+                core.items.add(item, 1);
             
             }
             
-        }
+           };
+        };
         
-    }
+    },
+    kill(){},
+    placed(){
+        
+        this.super$placed();
+        
+    },
+    buildConfiguration(table){
+        
+        var text = new TextField(0);
+        
+        table.button(Icon.editor, 36, run(() => {
+            
+            if(Vars.state.rules.infiniteResources){
+                
+                Vars.state.rules.infiniteResources = false
+                
+            }
+            else{
+                
+                Vars.state.rules.infiniteResources = true
+                
+            };
+            
+        })).size(60);
+        
+        table.button(Icon.add, 36, run(() => {
+            
+            
+            
+        })).size(60);
+        
+        
+    },
     
 });
 
 m.update = true;
+m.configurable = true;

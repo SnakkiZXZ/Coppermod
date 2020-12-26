@@ -7,8 +7,10 @@
 "maxNodes": 100
 "outputsPower": true
 "consumesPower": false
+category: power
 "requirements": [
 { "item": "copper", "amount": 35}
 ],
 "research": "gol"
+alwaysUnlocked: true
 }

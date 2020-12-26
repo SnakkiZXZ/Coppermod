@@ -8,8 +8,10 @@
 "liquidCapacity": 100,
 "outputsLiquid": true,
 "configurable": true,
+category: liquid
 "requirements": [
 { "item": "copper", "amount": 35}
 ],
 "research": "power"
+alwaysUnlocked: true
 }

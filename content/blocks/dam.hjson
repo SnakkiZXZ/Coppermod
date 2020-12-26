@@ -1,0 +1,10 @@
+{
+name: "дпс"
+description: "Тестовый блок, должен измерять и показывать полученный им урон"
+"health": 6000,
+"size": 1,
+"requirements": [
+{ "item": "copper", "amount": 35}
+],
+category: distribution
+}

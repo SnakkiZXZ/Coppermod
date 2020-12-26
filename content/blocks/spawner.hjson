@@ -1,0 +1,12 @@
+{
+	name: "Спаунер",
+	description: "Настраиваемый блок, создаёт любой тип юнитов в любом колличестве, может быть зациклен"
+	health: 6000
+	size: 1
+	requirements: [
+        copper/45
+	]
+	category: "logic"
+	research: "uni"
+    alwaysUnlocked: true
+}

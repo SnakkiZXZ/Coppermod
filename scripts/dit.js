@@ -1,32 +1,50 @@
-const Eff = require("EffectsLib");
+//const Eff = require("EffectsLib");
 
 const d = extendContent(Wall, "dit", {
     
-    update(tile){
+    setStats(){
         
-        if(tile.entity.health < tile.entity.maxHealth()){
+    this.super$setStats();
+    this.stats.remove(Stat.health);
+    this.stats.add(Stat.health, "∞", "");
+    
+  }
+    
+});
+d.update = true;
+d.insulated = true;
+d.absorbLasers = true;
+d.buildType = () => extendContent(Wall.WallBuild, d, {
+    
+    /*update(){
+        
+        if(this.health < this.maxHealth){
             
-            tile.entity.heal();
-            
-            Effects.effect(Fx.healBlock, Pal.heal, tile.drawx(), tile.drawy(), this.size);
+            this.heal()
             
         }
         
+    },*/
+    damage(amount){
+        if(this.team != Team.sharded && Vars.state.isCampaign()){
+            
+            this.super$damage(amount);
+            
+        };
+    },
+    kill(){
+        if(this.team != Team.sharded && Vars.state.isCampaign()){
+            
+            this.super$kill();
+            
+        };
+    },
+    killed(){
+        if(this.team != Team.sharded && Vars.state.isCampaign()){
+            
+            this.super$killed();
+            
+        };
     },
     
-    /*draw(tile){
-        
-        this.super$draw(tile);
-        
-        green = new Color();
-        
-        Draw.color(green.set(Color(0.0, 1.0, 0.0, Mathf.absin(Time.time(), 9, 1.5))));
-        
-        Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy());
-        
-        Draw.reset();
-        
-    },*/
-    
-});
-d.update = true
+}) 

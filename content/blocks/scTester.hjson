@@ -1,0 +1,9 @@
+{
+	"name": "Скрипт-тестер",
+	"health": 6000,
+	"size": 1,
+	"requirements": [
+		{ "item": "copper", "amount": 30}
+	],
+	"category": "logic",
+}

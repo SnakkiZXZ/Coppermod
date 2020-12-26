@@ -8,4 +8,5 @@
 	],
 	"category": "defense",
 		"research": "copper-wall"
+		alwaysUnlocked: true
 }

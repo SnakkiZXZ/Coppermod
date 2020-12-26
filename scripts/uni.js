@@ -1,69 +1,80 @@
 //var unit
+var unitsGroup = [];
+var teamsGroup = [];
 
-const point = newEffect(30, e => {
+const point = new Effect(30, e => {
     
-    Draw.color(Pal.accent);
+    Draw.color(e.color);
     Draw.alpha(e.fslope())
     
     Draw.rect(Core.atlas.find("[#624200]copper-uni-point"), e.x, e.y);
     
 })
-
 const m = extendContent(Block, "uni", {
     
-    addButtonTeam(i, table, tile){
+    init(){
+        
+        this.super$init();
+        unitsGroup = Vars.content.units()
+        teamsGroup = Team.baseTeams
+        
+    }
+    
+})
+
+m.buildType = prov(() => extend(Building, {
+    
+    _pint: 0,
+    
+    _spawnAddX: [0, 8, 0, -8],
+    _spawnAddY: [8, 0, -8, 0],
+    
+    addButtonTeam(i, table){
         
     
-    table.addImageButton(new TextureRegionDrawable(Core.atlas.find(this.name + "-" + i)), 
+    table.button(cons(b => {
+        
+        b.left
+        b.image(new TextureRegionDrawable(Core.atlas.find("[#624200]copper-saw-picker"))).size(26).pad(2).color(teamsGroup[i].color);
+        
+    }), 
     Styles.clearFulli, run(() => {
         
-        tile.setTeam(Team.base()[i]);
-    	Vars.player.setTeam(Team.base()[i])
+        //this.setTeam(Team.baseTeams[i]);
+        this.team = teamsGroup[i]
+    	//Vars.player.setTeam(Team.baseTeams[i])
+    	Vars.player.team(teamsGroup[i])
     	
-    })).size(40);
+    })).size(40).color(teamsGroup[i].color);
     
         
         
     },
     
-    addButtonUnit(b, table, tile){
+    kill(){},
+    addButtonUnit(b, table){
         
-        //style = Styles.clearToggleTransi;
+        table.button(new TextureRegionDrawable(unitsGroup.get(b).icon(Cicon.small)), Styles.clearFulli, 26, run(() => {
         
-        //style.imageUp = new TextureRegionDrawable(Vars.content.units().get(b).icon(Cicon.small));
+        //contentUnit = Vars.content.units().get(b);
+        //set(this.spawnX, this.spawnY)
+        unitsGroup.get(b).spawn(this.team, this.spawnX, this.spawnY);
         
-        //style = new ImageButtonStyle(null, null, null, new TextureRegionDrawable(Vars.content.units().get(b).icon(Cicon.small)), null, null)
-        
-        //button = table.addImageButton(Tex.whiteui, Styles.clearToggleTransi, 1, run(() => {
-        
-        button = table.addImageButton(new TextureRegionDrawable(Vars.content.units().get(b).icon(Cicon.small)), Styles.clearFulli, 26, run(() => {
-        
-        contentUnit = Vars.content.units().get(b);
-        
-        unit = contentUnit.create(tile.getTeam());
-        unit.set(this.spawnX, this.spawnY);
-        unit.add();
+        /*unit = UnitTypes.dagger.create(this.getTeam());
+        unit.set(this.x, this.y); 
+        unit.add();*/
     	
     })).size(40);
-    
-    //button.setStyle(style)
-    
-    //button.setStyle(style)
-    
-    //button.getStyle(). = new TextureRegionDrawable(Vars.content.units().get(b).icon(Cicon.small))
-    
-    //button.getStyle().imageUp = new TextureRegionDrawable(Vars.content.units().get(b).icon(Cicon.small))
-        
     },
     
-    addButtonControl(v, table, tile){
+    addButtonControl(v, table){
         
-        table.addImageButton(new TextureRegionDrawable(Core.atlas.find(this.name + "-arroy-" + v)), 
+        table.button(new TextureRegionDrawable(Core.atlas.find(m.name + "-arroy-" + v)), 
     Styles.clearFulli, run(() => {
         
-        this.spawnX += this.spawnAddX[v];
+        this.spawnX += this._spawnAddX[v];
         
-        this.spawnY += this.spawnAddY[v]
+        this.spawnY += this._spawnAddY[v]
     	
     })).size(40);
         
@@ -71,21 +82,22 @@ const m = extendContent(Block, "uni", {
     
     
     //button add
-    buildConfiguration(tile, table) {
+    buildConfiguration(table) {
         
         //Team
-        for(i = 0; i < Team.base().length; i++){
+        for(var i = 0; i < teamsGroup.length; i++){
             
-            this.addButtonTeam(i, table, tile)
+            this.addButtonTeam(i, table)
             
         };
      
     table.row();
     
-     //unit
-        for(b = 0; b < Vars.content.units().size; b++){
+     //unit  ////////////////////////////
+    table.pane(cons(tabl => {
+        for(var b = 0; b < unitsGroup.size; b++){
         
-        this.addButtonUnit(b, table, tile);
+        this.addButtonUnit(b, table);
         
         if(b % 6 == 5){
             
@@ -94,83 +106,62 @@ const m = extendContent(Block, "uni", {
         }
         
         };
+    })).maxHeight(Scl.scl(40 * 5)).colspan(6).maxWidth(40 * 6);
         
     table.row();
     
     //control
-        for(v = 0; v < this.spawnAddX.length; v++){
+        for(var v = 0; v < this._spawnAddX.length; v++){
             
-            this.addButtonControl(v, table, tile);
+            this.addButtonControl(v, table);
             
         }
         
-    //add clear unit
-    table.addImageButton(new TextureRegionDrawable(Core.atlas.find("error")), 
-    Styles.clearFulli, 23, run(() => {
+        table.button(new TextureRegionDrawable(Core.atlas.find("error")), 
+    Styles.clearFulli, 26, run(() => {
         
-        unit = Units.all(cons(Unit => {
-            
-            Unit.kill()
-            
-        }))
+        Groups.unit.each(cons(unit => unit.kill()))
     	
     })).size(40);
-        
-    //print(this.spawnX)
-        
-        
-        /*ItemSelection.buildTable(table, Vars.content.units(), Prov(() => unit), cons(item => {
-            
-            print(item)
-            unit = item.create(tile.getTeam());
-        unit.set(tile.drawx(), tile.drawy()); 
-        unit.add();
-            
-        }))
-        
-        //this good work
-        
-        */
-        
+    
+    table.row()
+    
+    //new menu
 
     },
-    placed(tile){
-        
-        /*for(i = 0; i < Vars.content.units().size; i++){
-        
-    print(Vars.content.units().get(i))
     
-        };*/
+    
+    loadTex(){
         
-        this.super$placed(tile);
-        
-        this.spawnX = tile.drawx();
-        this.spawnY = tile.drawy();
+        this.spawnX = this.x;
+        this.spawnY = this.y;
     
     },
-    init(){
+    /*init(){
         
-        this.super$init();
+        //this.super$init();
         
-        this.spawnX = 0;
-        this.spawnY = 0;
+        this.unitsGroup = Vars.content.units()
+        this.teamsGroup = Team.baseTeams
         
-        this.spawnAddX = [0, 8, 0, -8];
-        
-        this.spawnAddY = [8, 0, -8, 0]
-        
-    },
+    },*/
     
     update(tile){
         
-        if(tile.entity.timer.get(30)){
         
-        Effects.effect(point, this.spawnX, this.spawnY)
+        if(this._pint <= 0){
+        this.loadTex()
+        this._pint++
+        }
+        
+        if(this.timer.get(30)){
+        
+        point.at(this.spawnX, this.spawnY, this.team.color)
         
         }
         
     }
     
-});
+}));
 m.update = true;
 m.configurable = true;
