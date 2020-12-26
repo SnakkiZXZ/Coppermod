@@ -35,7 +35,7 @@ m.buildType = prov(() => extend(Building, {
     table.button(cons(b => {
         
         b.left
-        b.image(new TextureRegionDrawable(Core.atlas.find("[#624200]copper-saw-picker"))).size(26).pad(2).color(teamsGroup[i].color);
+        b.image(new TextureRegionDrawable(Core.atlas.find("[#624200]copper-saw-picker"))).size(30).pad(2).color(teamsGroup[i].color);
         
     }), 
     Styles.clearFulli, run(() => {

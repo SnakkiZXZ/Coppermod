@@ -76,11 +76,11 @@ s.buildType = () => extend(Building, {
     
     teamCounter(table, b){
         
-        table.button(new TextureRegionDrawable(Core.atlas.find("[#624200]copper-uni-" + b)), /*Styles.clearTogglePartiali,*/ 37, run(() => {
+        table.button(new TextureRegionDrawable(Core.atlas.find("[#624200]copper-uni-" + b)), /*Styles.clearTogglePartiali,*/ 56, run(() => {
         
         this.teamG = teamGroup[b]
     	
-    })).size(50).color(teamGroup[b].color).pad(2);
+    })).size(60).color(teamGroup[b].color).pad(2);
         
     },
     unitCounter(table, b){

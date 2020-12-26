@@ -55,8 +55,7 @@ m.buildType = () => extend(Building, {
             
         })).size(60);
         
-        table.button(Icon.add, 36, run(() => {
-            
+        table.button(Icon.lock, 36, run(() => {
             
             
         })).size(60);
