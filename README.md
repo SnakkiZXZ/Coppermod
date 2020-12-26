@@ -1,4 +1,4 @@
-## coppermod
+## COPPERMOD
 
 **-Hi, are you really reading this?**
 
@@ -7,4 +7,4 @@ This mod can be used both as a component that simplifies gameplay and for simpli
 
 **-if you really like this modification, do not forget to put an asterisk to recommend it to others).**
 
-links and stuff coming soon ...
+links and stuff coming soon ... 
