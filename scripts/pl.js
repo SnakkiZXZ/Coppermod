@@ -57,6 +57,11 @@ pl.generator = plGenerator;
 pl.meshLoader = prov(() => new HexMesh(pl, 6));
 pl.atmosphereColor = Color.valueOf("ff0000");
 pl.startSector = 15;*/
+const simplex = new Packages.arc.util.noise.Simplex();
+const rid = new Packages.arc.util.noise.RidgedPerlin(1, 2);
+
+
+
 const TwinGenerator = extend(PlanetGenerator, {
     
     getColor(position){
@@ -91,12 +96,17 @@ const TwinGenerator = extend(PlanetGenerator, {
     };
     },
     
-    rawHeight(pos){
+    /*rawHeight(pos){
     var pos = Tmp.v33.set(pos);
-    pos.scl(TwinGenerator.scl);
+    pos.scl(this.scl);
 
     return (Mathf.pow(simplex.octaveNoise3D(7, 0.5, 1 / 3, pos.x, pos.y, pos.z), 2.3) + TwinGenerator.waterOffset) / (1 + TwinGenerator.waterOffset);  
         
+    },*/
+    
+    rawHeight(position){
+        var position = Tmp.v33.set(position).scl(5);
+        return (Mathf.pow(simplex.octaveNoise3D(7, 0.5, 1/3, position.x, position.y, position.z), 2.3) + 0.07) / (1 + 0.07);
     },
     
     getHeight(position){
@@ -147,7 +157,7 @@ TwinGenerator.arr = [
     [Blocks.sandWater, Blocks.sand, Blocks.snow, Blocks.ice, Blocks.iceSnow, Blocks.snow, Blocks.snow, Blocks.snow, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice]
 ];
 TwinGenerator.scl = 5;
-TwinGenerator.waterOffset = 0.001;
+TwinGenerator.waterOffset = 0.07;
 TwinGenerator.basegen = new BaseGenerator();
 TwinGenerator.water = 2 / TwinGenerator.arr[0].length;
 
@@ -163,15 +173,13 @@ TwinGenerator.tars = new ObjectMap().of(
     Blocks.stone, Blocks.shale
 );
 
-const simplex = new Packages.arc.util.noise.Simplex();
-const rid = new Packages.arc.util.noise.RidgedPerlin(1, 2);
-const TwinPlanet = new JavaAdapter(Planet, {}, "twin", Planets.sun, 3, 1);
+const TwinPlanet = new JavaAdapter(Planet, {}, "hole", Planets.sun, 3, 1);
 TwinPlanet.generator = TwinGenerator;
 TwinPlanet.startSector = 25;
 TwinPlanet.hasAtmosphere = true;
 TwinPlanet.atmosphereColor = Color.valueOf("#FF221560");
 TwinPlanet.lightColor = Color.valueOf("#ff0000"); 
-TwinPlanet.meshLoader = prov(() => new HexMesh(TwinPlanet, 8));
+TwinPlanet.meshLoader = prov(() => new HexMesh(TwinPlanet, 5));
 
 const TwinSectors = new JavaAdapter(SectorPreset, {}, "card", TwinPlanet, 25);
 TwinSectors.alwaysUnlocked = true;
